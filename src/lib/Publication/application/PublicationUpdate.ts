@@ -9,12 +9,14 @@ import { PublicationId } from "../domain/props/PublicationId";
 import { PublicationContent } from "../domain/props/PublicationsContent";
 import { Publication } from "../domain/Publication";
 import { PublicationDbRepository } from "../domain/PublicationRepository";
+import { ImageUtilsRepository } from "../../Image/domain/repository/ImageUtilsRepository";
 
 export class PublicationUpdate {
   constructor(
     private publicationDbRepository: PublicationDbRepository,
     private userDbRepository: UserRepository,
-    private imageDbRepository: ImageDbRepository
+    private imageDbRepository: ImageDbRepository,
+    private imageUtilsRepository: ImageUtilsRepository
   ) {}
 
   async run(
@@ -44,7 +46,8 @@ export class PublicationUpdate {
       ? new ImageUrl(
           await new ImageUpdateApplication(
             this.publicationDbRepository,
-            this.imageDbRepository
+            this.imageDbRepository,
+            this.imageUtilsRepository
           ).run(id, imageFile)
         )
       : new ImageUrl(existingPublication.imageUrl.value);
