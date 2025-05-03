@@ -1,4 +1,4 @@
-import { ImageDbRepository } from "../../Image/domain/ImageDbRepository";
+import { ImageDbRepository } from "../../Image/domain/repository/ImageDbRepository";
 import { ImageUrl } from "../../Image/domain/props/ImageUrl";
 import { ImageUpdateApplication } from "../../shared/application/Image/ImageUpdateApplications";
 import { UserEmail } from "../domain/Props/UserEmail";
@@ -8,11 +8,13 @@ import { UserPassword } from "../domain/Props/UserPassword";
 import { User } from "../domain/User";
 import { UserRepository } from "../domain/UserRepository";
 import { UserError, UserNotFoundError } from "../domain/errors";
+import { ImageUtilsRepository } from "../../Image/domain/repository/ImageUtilsRepository";
 
 export class UserUpdate {
   constructor(
     private repository: UserRepository,
-    private imageDbRepository: ImageDbRepository
+    private imageDbRepository: ImageDbRepository,
+    private imageUtilsRepository: ImageUtilsRepository
   ) {}
 
   async run(
@@ -43,7 +45,8 @@ export class UserUpdate {
       ? new ImageUrl(
           await new ImageUpdateApplication(
             this.repository,
-            this.imageDbRepository
+            this.imageDbRepository,
+            this.imageUtilsRepository
           ).run(id, imageFile)
         )
       : new ImageUrl(foundUser.imageUrl.value);
@@ -51,7 +54,7 @@ export class UserUpdate {
     const user = new User(
       foundUser.id,
       updatedName,
-      foundUser.email, 
+      foundUser.email,
       updatedPassword,
       updatedImageUrl
     );

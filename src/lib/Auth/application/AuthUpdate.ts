@@ -3,15 +3,17 @@ import { UserName } from "../../User/domain/Props/UserName";
 import { UserEmail } from "../../User/domain/Props/UserEmail";
 import { UserPassword } from "../../User/domain/Props/UserPassword";
 import { UserUpdate } from "../../User/application/UserUpdate";
-import { ImageDbRepository } from "../../Image/domain/ImageDbRepository";
+import { ImageDbRepository } from "../../Image/domain/repository/ImageDbRepository";
 import { UserFindById } from "../../User/application/UserfindById";
 import { UserRepository } from "../../User/domain/UserRepository";
+import { ImageUtilsRepository } from "../../Image/domain/repository/ImageUtilsRepository";
 
 export class AuthUpdate {
   constructor(
     private userRepository: UserRepository,
     private authRepository: AuthRepository,
-    private imageDbRepository: ImageDbRepository
+    private imageDbRepository: ImageDbRepository,
+    private imageUtilsRepository: ImageUtilsRepository
   ) {}
 
   async run(
@@ -23,7 +25,8 @@ export class AuthUpdate {
   ): Promise<void> {
     const userUpdateApplication = new UserUpdate(
       this.userRepository,
-      this.imageDbRepository
+      this.imageDbRepository,
+      this.imageUtilsRepository
     );
     const userFindByIdApplication = new UserFindById(this.userRepository);
     const existingUser = await userFindByIdApplication.run(id);

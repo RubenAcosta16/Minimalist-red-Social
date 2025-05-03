@@ -1,5 +1,5 @@
 import { ImageDelete } from "../../Image/application/ImageDelete";
-import { ImageDbRepository } from "../../Image/domain/ImageDbRepository";
+import { ImageDbRepository } from "../../Image/domain/repository/ImageDbRepository";
 import { UserId } from "../domain/Props/UserId";
 import { UserRepository } from "../domain/UserRepository";
 import { UserNotFoundError } from "../domain/errors";

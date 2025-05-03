@@ -1,4 +1,4 @@
-import { ImageDbRepository } from "../../Image/domain/ImageDbRepository";
+import { ImageDbRepository } from "../../Image/domain/repository/ImageDbRepository";
 import { ImageUrl } from "../../Image/domain/props/ImageUrl";
 import { ImageUploadApplication } from "../../shared/application/Image/ImageUploadApplication";
 import { UserEmail } from "../domain/Props/UserEmail";
@@ -8,11 +8,13 @@ import { UserPassword } from "../domain/Props/UserPassword";
 import { User } from "../domain/User";
 import { UserRepository } from "../domain/UserRepository";
 import { UserError } from "../domain/errors";
+import { ImageUtilsRepository } from "../../Image/domain/repository/ImageUtilsRepository";
 
 export class UserCreate {
   constructor(
     private repository: UserRepository,
-    private imageDbRepository: ImageDbRepository
+    private imageDbRepository: ImageDbRepository,
+    private imageUtilsRepository: ImageUtilsRepository
   ) {}
 
   async run(
@@ -28,7 +30,10 @@ export class UserCreate {
     const FoundId = await this.repository.findById(new UserId(id));
     if (FoundId) throw new UserError("Id already exists");
 
-    const imageApplication = new ImageUploadApplication(this.imageDbRepository);
+    const imageApplication = new ImageUploadApplication(
+      this.imageDbRepository,
+      this.imageUtilsRepository
+    );
 
     const imageUrl: string = await imageApplication.run(imageFile);
 

@@ -1,6 +1,5 @@
 import { Image } from "../domain/Image";
-import { ImageDbRepository } from "../domain/ImageDbRepository";
-import cloudinary from "./cloudinary/config";
+import { ImageDbRepository } from "../domain/repository/ImageDbRepository";
 
 export class ImageInMemoryRepository implements ImageDbRepository {
   private images: Image[] = [];
@@ -16,21 +15,5 @@ export class ImageInMemoryRepository implements ImageDbRepository {
     this.images.push(image);
   }
 
-  async uploadImage(file: Buffer): Promise<{ url: string; publicId: string }> {
-    const buffer = file;
 
-    const { secure_url, public_id } = await new Promise<{
-      secure_url: string;
-      public_id: string;
-    }>((resolve, reject) => {
-      cloudinary.uploader
-        .upload_stream({}, (err, result) => {
-          if (err) return reject(err);
-          resolve(result as { secure_url: string; public_id: string });
-        })
-        .end(buffer);
-    });
-
-    return { url: secure_url, publicId: public_id };
-  }
 }

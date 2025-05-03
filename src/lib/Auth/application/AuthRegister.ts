@@ -2,7 +2,8 @@ import { AuthRepository } from "../domain/AuthRepository";
 import { UserCreate } from "../../User/application/UserCreate";
 
 import { UserRepository } from "../../User/domain/UserRepository";
-import { ImageDbRepository } from "../../Image/domain/ImageDbRepository";
+import { ImageDbRepository } from "../../Image/domain/repository/ImageDbRepository";
+import { ImageUtilsRepository } from "../../Image/domain/repository/ImageUtilsRepository";
 
 // type combinedImageRepository =ImageDbRepository & ImageRepository
 
@@ -10,7 +11,8 @@ export class AuthRegister {
   constructor(
     private userRepository: UserRepository,
     private authRepository: AuthRepository,
-    private imageDbRepository: ImageDbRepository
+    private imageDbRepository: ImageDbRepository,
+    private imageUtilsRepository: ImageUtilsRepository
   ) {}
 
   async run(
@@ -26,7 +28,8 @@ export class AuthRegister {
     // );
     const userApplication = new UserCreate(
       this.userRepository,
-      this.imageDbRepository
+      this.imageDbRepository,
+      this.imageUtilsRepository
     );
 
     // const imageUrl = await imageApplication.run(imageFile);

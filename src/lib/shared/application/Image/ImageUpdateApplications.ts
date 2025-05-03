@@ -2,7 +2,8 @@
 
 import { ImageDelete } from "../../../Image/application/ImageDelete";
 import { ImageUpload } from "../../../Image/application/ImageUpload";
-import { ImageDbRepository } from "../../../Image/domain/ImageDbRepository";
+import { ImageDbRepository } from "../../../Image/domain/repository/ImageDbRepository";
+import { ImageUtilsRepository } from "../../../Image/domain/repository/ImageUtilsRepository";
 import { PublicationFindById } from "../../../Publication/application/PublicationFindById";
 import { PublicationDbRepository } from "../../../Publication/domain/PublicationRepository";
 import { UserFindById } from "../../../User/application/UserfindById";
@@ -12,7 +13,8 @@ import { UserRepository } from "../../../User/domain/UserRepository";
 export class ImageUpdateApplication {
   constructor(
     private propRepository: UserRepository | PublicationDbRepository,
-    private imageDbRepository: ImageDbRepository
+    private imageDbRepository: ImageDbRepository,
+    private imageUtilsRepository: ImageUtilsRepository
   ) {}
 
   async run(id: string, imageFile: Buffer | undefined): Promise<string> {
@@ -34,7 +36,10 @@ export class ImageUpdateApplication {
     }
 
     const imageDeleteApplication = new ImageDelete(this.imageDbRepository);
-    const imageUploadApplication = new ImageUpload(this.imageDbRepository);
+    const imageUploadApplication = new ImageUpload(
+      this.imageDbRepository,
+      this.imageUtilsRepository
+    );
 
     let imageUrl: string = "";
     const existingUser = await findByIdApplication.run(id);

@@ -1,4 +1,4 @@
-import { ImageDbRepository } from "../../Image/domain/ImageDbRepository";
+import { ImageDbRepository } from "../../Image/domain/repository/ImageDbRepository";
 import { ImageUrl } from "../../Image/domain/props/ImageUrl";
 import { ImageUploadApplication } from "../../shared/application/Image/ImageUploadApplication";
 import { UserId } from "../../User/domain/Props/UserId";
@@ -9,14 +9,16 @@ import { PublicationId } from "../domain/props/PublicationId";
 import { PublicationContent } from "../domain/props/PublicationsContent";
 import { Publication } from "../domain/Publication";
 import { PublicationDbRepository } from "../domain/PublicationRepository";
+import { ImageUtilsRepository } from "../../Image/domain/repository/ImageUtilsRepository";
 
 export class PublicationCreate {
   constructor(
     private publicationDbRepository: PublicationDbRepository,
     private userDbRepository: UserRepository,
-    private imageDbRepository: ImageDbRepository
+    private imageDbRepository: ImageDbRepository,
+    private imageUtilsRepository: ImageUtilsRepository
   ) {}
- 
+
   async run(
     id: string,
     idUser: string,
@@ -24,7 +26,10 @@ export class PublicationCreate {
     imageFile: Buffer | undefined,
     date: Date
   ): Promise<void> {
-    const imageApplication = new ImageUploadApplication(this.imageDbRepository);
+    const imageApplication = new ImageUploadApplication(
+      this.imageDbRepository,
+      this.imageUtilsRepository
+    );
 
     const FoundId = await this.publicationDbRepository.findById(
       new PublicationId(id)

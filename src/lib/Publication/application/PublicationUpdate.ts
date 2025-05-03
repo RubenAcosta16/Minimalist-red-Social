@@ -1,4 +1,4 @@
-import { ImageDbRepository } from "../../Image/domain/ImageDbRepository";
+import { ImageDbRepository } from "../../Image/domain/repository/ImageDbRepository";
 import { ImageUrl } from "../../Image/domain/props/ImageUrl";
 import { ImageUpdateApplication } from "../../shared/application/Image/ImageUpdateApplications";
 import { UserId } from "../../User/domain/Props/UserId";

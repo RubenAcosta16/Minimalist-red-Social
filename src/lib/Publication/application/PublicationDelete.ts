@@ -1,5 +1,5 @@
 import { ImageDelete } from "../../Image/application/ImageDelete";
-import { ImageDbRepository } from "../../Image/domain/ImageDbRepository";
+import { ImageDbRepository } from "../../Image/domain/repository/ImageDbRepository";
 import { PublicationNotFoundError } from "../domain/errors";
 import { PublicationId } from "../domain/props/PublicationId";
 import { PublicationDbRepository } from "../domain/PublicationRepository";

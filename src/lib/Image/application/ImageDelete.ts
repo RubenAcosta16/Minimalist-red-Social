@@ -1,6 +1,6 @@
 import { ImageError } from "../domain/errors";
 
-import { ImageDbRepository } from "../domain/ImageDbRepository";
+import { ImageDbRepository } from "../domain/repository/ImageDbRepository";
 
 export class ImageDelete {
   constructor(private dbRepository: ImageDbRepository) {}
