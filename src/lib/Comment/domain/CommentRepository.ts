@@ -1,5 +1,5 @@
 import { Comment } from "./Comment";
-import { CommentId } from "./props/Comment";
+import { CommentId } from "./props/CommentId";
 
 export interface CommentDbRepository {
   findById(id: CommentId): Promise<Comment | null>;

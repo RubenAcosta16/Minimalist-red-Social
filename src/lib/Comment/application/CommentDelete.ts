@@ -1,6 +1,6 @@
 import { CommentDbRepository } from "../domain/CommentRepository";
 import { CommentNotFoundError } from "../domain/errors";
-import { CommentId } from "../domain/props/Comment";
+import { CommentId } from "../domain/props/CommentId";
 
 export class CommentDelete {
   constructor(private commentRepository: CommentDbRepository) {}

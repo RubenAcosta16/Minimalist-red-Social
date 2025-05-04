@@ -1,6 +1,6 @@
 import { PublicationId } from "../../Publication/domain/props/PublicationId";
 import { UserId } from "../../User/domain/Props/UserId";
-import { CommentId } from "./props/Comment";
+import { CommentId } from "./props/CommentId";
 import { CommentContent } from "./props/CommentContent";
 import { CommentDate } from "./props/CommentDate";
 

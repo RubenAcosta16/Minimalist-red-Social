@@ -6,7 +6,7 @@ import { UserRepository } from "../../User/domain/UserRepository";
 import { Comment } from "../domain/Comment";
 import { CommentDbRepository } from "../domain/CommentRepository";
 import { CommentError, CommentNotFoundError } from "../domain/errors";
-import { CommentId } from "../domain/props/Comment";
+import { CommentId } from "../domain/props/CommentId";
 import { CommentContent } from "../domain/props/CommentContent";
 
 export class CommentUpdate {

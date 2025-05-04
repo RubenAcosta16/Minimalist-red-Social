@@ -47,7 +47,7 @@
  -delete
 
 
-
+ 
 -likesComentarios
  -idLike
  -idUsuario
@@ -59,6 +59,7 @@
 
 
 -seguidores
+  -idFollow
   -idUsuarioAseguir
   -idUsuarioSeguidor
 

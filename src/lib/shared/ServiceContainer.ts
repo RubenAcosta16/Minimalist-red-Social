@@ -8,6 +8,12 @@ import { CommentFindAll } from "../Comment/application/CommentFindAll";
 import { CommentFindById } from "../Comment/application/CommentFindById";
 import { CommentUpdate } from "../Comment/application/CommentUpdate";
 import { InMemoryCommentRepository } from "../Comment/infraestructure/InMemoryCommentRepository";
+import { FindUsersFollowYou } from "../Follow/application/FindUsersFollowYou";
+import { FindUsersYouFollow } from "../Follow/application/FindUsersYouFollow";
+import { FollowCreate } from "../Follow/application/FollowCreate";
+import { FollowDelete } from "../Follow/application/FollowDelete";
+import { FollowFindById } from "../Follow/application/FollowFindById";
+import { InMemoryFollowRepository } from "../Follow/infraestructure/InMemoryFollowRepository";
 import { CloudinaryImageRepository } from "../Image/infraestructure/CloudinaryImageRepository";
 import { ImageInMemoryRepository } from "../Image/infraestructure/InMemoryImageRepository";
 import { PublicationCreate } from "../Publication/application/PublicationCreate";
@@ -27,6 +33,7 @@ const userRepository = new InMemoryUserRepository();
 const authRepository = new AuthTokenInfraestrucutre();
 const publicationRepository = new InMemoryPublicationRepository();
 const commentRepository = new InMemoryCommentRepository();
+const followRepository = new InMemoryFollowRepository();
 
 const imageDbRepository = new ImageInMemoryRepository();
 const imageUtilsRepository = new CloudinaryImageRepository();
@@ -93,5 +100,18 @@ export const ServiceContainer = {
       publicationRepository
     ),
     delete: new CommentDelete(commentRepository),
+  },
+  follow: {
+    create: new FollowCreate(followRepository, userRepository),
+    delete: new FollowDelete(followRepository),
+    findById: new FollowFindById(followRepository),
+    findUsersYouFollow: new FindUsersYouFollow(
+      followRepository,
+      userRepository
+    ),
+    findUsersFollowYou: new FindUsersFollowYou(
+      followRepository,
+      userRepository
+    ),
   },
 };

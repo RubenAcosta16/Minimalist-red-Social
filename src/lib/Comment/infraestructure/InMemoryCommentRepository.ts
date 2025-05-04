@@ -1,6 +1,6 @@
 import { Comment } from "../domain/Comment";
 import { CommentDbRepository } from "../domain/CommentRepository";
-import { CommentId } from "../domain/props/Comment";
+import { CommentId } from "../domain/props/CommentId";
 
 export class InMemoryCommentRepository implements CommentDbRepository {
   private comment: Comment[] = [];
