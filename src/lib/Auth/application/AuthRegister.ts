@@ -29,11 +29,10 @@ export class AuthRegister {
       this.imageUtilsRepository
     );
 
-    const id = this.authRepository.generateId();
     const hashedPassword = await this.authRepository.hashPassword(password);
 
     return await userApplication.run(
-      id,
+      // id,
       name,
       email,
       hashedPassword,

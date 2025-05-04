@@ -1,3 +1,4 @@
+import { generateId } from "../../shared/infraestructure/generateId";
 import { UserId } from "../../User/domain/Props/UserId";
 import { UserRepository } from "../../User/domain/UserRepository";
 import { FollowError, FollowNotFoundError } from "../domain/errors";
@@ -12,10 +13,12 @@ export class FollowCreate {
   ) {}
 
   async run(
-    id: string,
+    // id: string,
     idUserToFollow: string,
     idUserFollower: string
   ): Promise<void> {
+    const id = generateId();
+
     const followFound = await this.followRepository.findById(new FollowId(id));
     if (!followFound) throw new FollowError("Follow already exists");
 

@@ -8,5 +8,4 @@ export interface AuthRepository {
     hashedPassword: string,
   ): Promise<boolean>;
   hashPassword(password: string): Promise<string>;
-  generateId(): string;
 }

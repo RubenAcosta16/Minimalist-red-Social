@@ -9,6 +9,7 @@ import { CommentError, CommentNotFoundError } from "../domain/errors";
 import { CommentId } from "../domain/props/CommentId";
 import { CommentContent } from "../domain/props/CommentContent";
 import { CommentDate } from "../domain/props/CommentDate";
+import { generateId } from "../../shared/infraestructure/generateId";
 
 export class CommentCreate {
   constructor(
@@ -18,12 +19,14 @@ export class CommentCreate {
   ) {}
 
   async run(
-    id: string,
+    // id: string,
     idUsuario: string,
     idPublication: string,
     content: string
     // date
   ): Promise<void> {
+    const id = generateId();
+
     const commentFound = await this.commentRepository.findById(
       new CommentId(id)
     );

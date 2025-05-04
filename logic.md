@@ -62,7 +62,7 @@
   -idFollow
   -idUsuarioAseguir
   -idUsuarioSeguidor
-
+ 
   -create
  -delete
 

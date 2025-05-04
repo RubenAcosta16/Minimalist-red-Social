@@ -10,6 +10,7 @@ import { PublicationContent } from "../domain/props/PublicationsContent";
 import { Publication } from "../domain/Publication";
 import { PublicationDbRepository } from "../domain/PublicationRepository";
 import { ImageUtilsRepository } from "../../Image/domain/repository/ImageUtilsRepository";
+import { generateId } from "../../shared/infraestructure/generateId";
 
 export class PublicationCreate {
   constructor(
@@ -20,11 +21,13 @@ export class PublicationCreate {
   ) {}
 
   async run(
-    id: string,
-    idUser: string, 
+    // id: string,
+    idUser: string,
     content: string,
-    imageFile: Buffer | undefined,
+    imageFile: Buffer | undefined
   ): Promise<void> {
+    const id = generateId();
+
     const imageApplication = new ImageUploadApplication(
       this.imageDbRepository,
       this.imageUtilsRepository

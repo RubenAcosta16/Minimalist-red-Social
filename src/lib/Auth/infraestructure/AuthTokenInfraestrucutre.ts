@@ -2,7 +2,6 @@ import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 
 import { AuthRepository } from "../domain/AuthRepository";
-import { v4 as uuidv4 } from "uuid";
 import { User } from "../../User/domain/User";
 import {
   EXPIRES_JWT,
@@ -19,9 +18,7 @@ export class AuthTokenInfraestrucutre implements AuthRepository {
     return await bcrypt.hash(password, Number(SALTROUNDS));
   }
 
-  public generateId(): string {
-    return uuidv4();
-  }
+
 
   public async generateToken(user: User): Promise<string> {
     // console.log(user);

@@ -9,8 +9,9 @@ import { User } from "../domain/User";
 import { UserRepository } from "../domain/UserRepository";
 import { UserError } from "../domain/errors";
 import { ImageUtilsRepository } from "../../Image/domain/repository/ImageUtilsRepository";
+import { generateId } from "../../shared/infraestructure/generateId";
 
-export class UserCreate { 
+export class UserCreate {
   constructor(
     private repository: UserRepository,
     private imageDbRepository: ImageDbRepository,
@@ -18,7 +19,7 @@ export class UserCreate {
   ) {}
 
   async run(
-    id: string,
+    // id: string,
     name: string,
     email: string,
     password: string,
@@ -26,6 +27,8 @@ export class UserCreate {
   ): Promise<void> {
     const FoundEmail = await this.repository.findByEmail(new UserEmail(email));
     if (FoundEmail) throw new UserError("Email already exists");
+
+    const id = generateId();
 
     const FoundId = await this.repository.findById(new UserId(id));
     if (FoundId) throw new UserError("Id already exists");
