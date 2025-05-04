@@ -2,6 +2,12 @@ import { AuthLogin } from "../Auth/application/AuthLogin";
 import { AuthRegister } from "../Auth/application/AuthRegister";
 import { AuthUpdate } from "../Auth/application/AuthUpdate";
 import { AuthTokenInfraestrucutre } from "../Auth/infraestructure/AuthTokenInfraestrucutre";
+import { CommentCreate } from "../Comment/application/CommentCreate";
+import { CommentDelete } from "../Comment/application/CommentDelete";
+import { CommentFindAll } from "../Comment/application/CommentFindAll";
+import { CommentFindById } from "../Comment/application/CommentFindById";
+import { CommentUpdate } from "../Comment/application/CommentUpdate";
+import { InMemoryCommentRepository } from "../Comment/infraestructure/InMemoryCommentRepository";
 import { CloudinaryImageRepository } from "../Image/infraestructure/CloudinaryImageRepository";
 import { ImageInMemoryRepository } from "../Image/infraestructure/InMemoryImageRepository";
 import { PublicationCreate } from "../Publication/application/PublicationCreate";
@@ -20,6 +26,7 @@ import { InMemoryUserRepository } from "../User/infrastructure/db/InMemoryUserRe
 const userRepository = new InMemoryUserRepository();
 const authRepository = new AuthTokenInfraestrucutre();
 const publicationRepository = new InMemoryPublicationRepository();
+const commentRepository = new InMemoryCommentRepository();
 
 const imageDbRepository = new ImageInMemoryRepository();
 const imageUtilsRepository = new CloudinaryImageRepository();
@@ -71,5 +78,20 @@ export const ServiceContainer = {
       imageUtilsRepository
     ),
     delete: new PublicationDelete(publicationRepository, imageDbRepository),
+  },
+  comment: {
+    getAll: new CommentFindAll(commentRepository),
+    getOneById: new CommentFindById(commentRepository),
+    create: new CommentCreate(
+      commentRepository,
+      userRepository,
+      publicationRepository
+    ),
+    edit: new CommentUpdate(
+      commentRepository,
+      userRepository,
+      publicationRepository
+    ),
+    delete: new CommentDelete(commentRepository),
   },
 };

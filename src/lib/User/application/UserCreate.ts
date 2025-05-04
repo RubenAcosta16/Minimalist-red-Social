@@ -10,7 +10,7 @@ import { UserRepository } from "../domain/UserRepository";
 import { UserError } from "../domain/errors";
 import { ImageUtilsRepository } from "../../Image/domain/repository/ImageUtilsRepository";
 
-export class UserCreate {
+export class UserCreate { 
   constructor(
     private repository: UserRepository,
     private imageDbRepository: ImageDbRepository,

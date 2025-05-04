@@ -23,16 +23,11 @@ export class AuthRegister {
     imageFile: Buffer | undefined
     // userAuthenticatedRole: UserImageUrl
   ): Promise<void> {
-    // const imageApplication = new ImageUploadApplication(
-    //   this.imageDbRepository,
-    // );
     const userApplication = new UserCreate(
       this.userRepository,
       this.imageDbRepository,
       this.imageUtilsRepository
     );
-
-    // const imageUrl = await imageApplication.run(imageFile);
 
     const id = this.authRepository.generateId();
     const hashedPassword = await this.authRepository.hashPassword(password);

@@ -24,7 +24,7 @@
   
 
 -comentarios
-  -idcomentario
+  -idcomentario 
   -idPublicacion
   -idUsuario
   -contenido
@@ -34,7 +34,7 @@
   -update pero que no pase de 30 min despues de crearse
   -delete
   -getAll
-  -getOne
+  -getOne 
 
 
 
@@ -51,7 +51,7 @@
 -likesComentarios
  -idLike
  -idUsuario
- -idPublicacion
+ -idComentario
 
 -create
  -delete
@@ -84,4 +84,4 @@
 
   hacer paginacion y limit para getAll 
 
-  si separar en image en la interface 
+  <!-- si separar en image en la interface  -->

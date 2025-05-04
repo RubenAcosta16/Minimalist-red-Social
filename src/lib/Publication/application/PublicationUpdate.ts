@@ -4,7 +4,6 @@ import { ImageUpdateApplication } from "../../shared/application/Image/ImageUpda
 import { UserId } from "../../User/domain/Props/UserId";
 import { UserRepository } from "../../User/domain/UserRepository";
 import { PublicationError } from "../domain/errors";
-import { PublicationDate } from "../domain/props/PublicationDate";
 import { PublicationId } from "../domain/props/PublicationId";
 import { PublicationContent } from "../domain/props/PublicationsContent";
 import { Publication } from "../domain/Publication";
@@ -23,9 +22,7 @@ export class PublicationUpdate {
     id: string,
     idUser: string,
     content?: string,
-    imageFile?: Buffer | undefined,
-
-    date?: Date
+    imageFile?: Buffer | undefined
   ): Promise<void> {
     const existingPublication = await this.publicationDbRepository.findById(
       new PublicationId(id)
@@ -52,16 +49,12 @@ export class PublicationUpdate {
         )
       : new ImageUrl(existingPublication.imageUrl.value);
 
-    const updatedDate = date
-      ? new PublicationDate(date)
-      : existingPublication.date;
-
     const updatedPublication = new Publication(
       new PublicationId(id),
       new UserId(idUser),
       updatedContent,
       updatedImageUrl,
-      updatedDate
+      existingPublication.date
     );
 
     return await this.publicationDbRepository.update(updatedPublication);

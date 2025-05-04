@@ -1,10 +1,10 @@
-import { FindById } from "../../shared/domain/FindByIdRepository";
+
 import { UserId } from "../domain/Props/UserId";
 import { User } from "../domain/User";
 import { UserRepository } from "../domain/UserRepository";
 import { UserNotFoundError } from "../domain/errors";
 
-export class UserFindById implements FindById{
+export class UserFindById{
   constructor(private repository: UserRepository) {}
 
   async run(id: string): Promise<User> {

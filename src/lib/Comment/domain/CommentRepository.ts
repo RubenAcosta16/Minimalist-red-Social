@@ -1,0 +1,10 @@
+import { Comment } from "./Comment";
+import { CommentId } from "./props/Comment";
+
+export interface CommentDbRepository {
+  findById(id: CommentId): Promise<Comment | null>;
+  create(comment: Comment): Promise<void>;
+  delete(id: CommentId): Promise<void>;
+  findAll(): Promise<Comment[]>;
+  update(comment: Comment): Promise<void>;
+}

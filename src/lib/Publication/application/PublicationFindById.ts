@@ -1,10 +1,10 @@
-import { FindById } from "../../shared/domain/FindByIdRepository";
+
 import { PublicationNotFoundError } from "../domain/errors";
 import { PublicationId } from "../domain/props/PublicationId";
 import { Publication } from "../domain/Publication";
 import { PublicationDbRepository } from "../domain/PublicationRepository";
 
-export class PublicationFindById implements FindById{
+export class PublicationFindById{
   constructor(private repository: PublicationDbRepository) {}
 
   async run(id: string): Promise<Publication> {

@@ -21,10 +21,9 @@ export class PublicationCreate {
 
   async run(
     id: string,
-    idUser: string,
+    idUser: string, 
     content: string,
     imageFile: Buffer | undefined,
-    date: Date
   ): Promise<void> {
     const imageApplication = new ImageUploadApplication(
       this.imageDbRepository,
@@ -40,6 +39,8 @@ export class PublicationCreate {
     if (!FoundUser) throw new PublicationError("User Not Found");
 
     const imageUrl: string = await imageApplication.run(imageFile);
+
+    const date: Date = new Date(Date.now());
 
     const newPublication = new Publication(
       new PublicationId(id),
