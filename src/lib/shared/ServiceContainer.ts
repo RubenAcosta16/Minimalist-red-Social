@@ -16,6 +16,12 @@ import { FollowFindById } from "../Follow/application/FollowFindById";
 import { InMemoryFollowRepository } from "../Follow/infraestructure/InMemoryFollowRepository";
 import { CloudinaryImageRepository } from "../Image/infraestructure/CloudinaryImageRepository";
 import { ImageInMemoryRepository } from "../Image/infraestructure/InMemoryImageRepository";
+import { LikeCreate } from "../Like/application/LikeCreate";
+import { LikeDelete } from "../Like/application/LikeDelete";
+import { LikeFindById } from "../Like/application/LikeFindById";
+import { LikeFindByPubOrComm } from "../Like/application/LikeFindByPubOrCommId";
+import { LikeFindByUserId } from "../Like/application/LikeFindByUserId";
+import { InMemoryLikeRepository } from "../Like/infraestructure/InMemoryLikeRepository";
 import { PublicationCreate } from "../Publication/application/PublicationCreate";
 import { PublicationDelete } from "../Publication/application/PublicationDelete";
 import { PublicationFindAll } from "../Publication/application/PublicationFindAll";
@@ -34,6 +40,7 @@ const authRepository = new AuthTokenInfraestrucutre();
 const publicationRepository = new InMemoryPublicationRepository();
 const commentRepository = new InMemoryCommentRepository();
 const followRepository = new InMemoryFollowRepository();
+const likeRepository = new InMemoryLikeRepository();
 
 const imageDbRepository = new ImageInMemoryRepository();
 const imageUtilsRepository = new CloudinaryImageRepository();
@@ -113,5 +120,21 @@ export const ServiceContainer = {
       followRepository,
       userRepository
     ),
+    like: {
+      create: new LikeCreate(
+        likeRepository, 
+        userRepository,
+        publicationRepository,
+        commentRepository
+      ),
+      delete: new LikeDelete(likeRepository),
+      findById: new LikeFindById(likeRepository),
+      findByPubOrCommId: new LikeFindByPubOrComm(
+        likeRepository,
+        commentRepository,
+        publicationRepository
+      ),
+      findByUserId: new LikeFindByUserId(likeRepository, userRepository),
+    },
   },
 };

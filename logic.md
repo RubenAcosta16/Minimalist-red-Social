@@ -28,7 +28,7 @@
   -idPublicacion
   -idUsuario
   -contenido
-  -fecha
+  -fecha 
 
   -create
   -update pero que no pase de 30 min despues de crearse
@@ -38,7 +38,7 @@
 
 
 
--likesPublicaciones
+-likesPublicaciones 
  -idLike
  -idUsuario
  -idPublicacion
