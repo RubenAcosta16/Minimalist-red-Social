@@ -1,4 +1,6 @@
+import { Comment } from "../../Comment/domain/Comment";
 import { CommentDbRepository } from "../../Comment/domain/CommentRepository";
+import { Publication } from "../../Publication/domain/Publication";
 import { PublicationDbRepository } from "../../Publication/domain/PublicationRepository";
 import { generateId } from "../../shared/infraestructure/generateId";
 import { UserId } from "../../User/domain/Props/UserId";
@@ -13,10 +15,11 @@ export class LikeCreate {
   constructor(
     private likeRepository: LikeDbRepository,
     private userRepository: UserRepository,
-    private PubOrCommRepository: PublicationDbRepository | CommentDbRepository
+    private publicationRepository: PublicationDbRepository,
+    private commentRepository: CommentDbRepository
   ) {}
 
-   async run(
+  async run(
     // id: string,
     idUser: string,
     idPubOrComm: never,
@@ -33,9 +36,14 @@ export class LikeCreate {
     const userFound = await this.userRepository.findById(new UserId(idUser));
     if (!userFound) throw new LikeError("user not found");
 
-    const idPubOrCommFound = await this.PubOrCommRepository.findById(
-      idPubOrComm
-    );
+    let idPubOrCommFound: Publication | Comment | null = null;
+
+    if (likeType === "publication") {
+      idPubOrCommFound = await this.commentRepository.findById(idPubOrComm);
+    } else if (likeType === "comment") {
+      idPubOrCommFound = await this.publicationRepository.findById(idPubOrComm);
+    }
+
     if (!idPubOrCommFound)
       throw new LikeError("Publication or Comment not found");
 

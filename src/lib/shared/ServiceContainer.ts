@@ -122,7 +122,7 @@ export const ServiceContainer = {
     ),
     like: {
       create: new LikeCreate(
-        likeRepository, 
+        likeRepository,
         userRepository,
         publicationRepository,
         commentRepository
