@@ -9,8 +9,14 @@ export class InMemoryCommentRepository implements CommentDbRepository {
     this.comment.push(comment);
   }
 
-  async findAll(): Promise<Comment[]> {
-    return this.comment;
+  async findAll(idPublicationFrom: string, page: number): Promise<Comment[]> {
+    const limit = 10; 
+    const filtered = this.comment.filter(
+      (comment) => comment.idPublication.value === idPublicationFrom
+    );
+    const start = (page - 1) * limit;
+    const end = start + limit;
+    return filtered.slice(start, end);
   }
 
   async findById(id: CommentId): Promise<Comment | null> {

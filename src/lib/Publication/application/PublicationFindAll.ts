@@ -5,6 +5,6 @@ export class PublicationFindAll {
   constructor(private repository: PublicationDbRepository) {}
 
   async run(): Promise<Publication[]> {
-    return await this.repository.findAll();
+    return await this.repository.findAll(null);
   }
 }

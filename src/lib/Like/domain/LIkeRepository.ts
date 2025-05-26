@@ -16,3 +16,4 @@ export interface LikeDbRepository {
   create(like: Like): Promise<void>;
   delete(id: LikeId): Promise<void>;
 }
+ 

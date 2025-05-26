@@ -8,10 +8,10 @@ import { AuthInvalidCredentialsError } from "../../../../Auth/domain/errors";
 import { User } from "../../../../User/domain/User";
 import { ImageUrl } from "../../../../Image/domain/props/ImageUrl";
 
-type OmitUser = Omit<
+export type OmitUser = Omit<
   User,
   "password" | "mapToPrimitives" | "mapToPrimitivesNoPassword"
->;
+>; 
 
 declare module "express" {
   interface Request {

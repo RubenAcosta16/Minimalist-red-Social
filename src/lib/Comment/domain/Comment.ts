@@ -10,7 +10,7 @@ export class Comment {
   idUser: UserId;
   content: CommentContent;
   date: CommentDate;
-
+ 
   constructor(
     id: CommentId,
     idPublication: PublicationId,

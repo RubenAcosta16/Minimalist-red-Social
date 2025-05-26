@@ -18,6 +18,7 @@ ExpressAuthRouter.post("/register", controller.register);
 // );
 ExpressAuthRouter.post("/login", controller.login);
 ExpressAuthRouter.get("/protected", authMiddleware, controller.protectedRoute);
+ExpressAuthRouter.put("/update", authMiddleware, controller.updateUser);
 // ExpressAuthRouter.get(
 //   "/admin",
 //   authMiddleware,

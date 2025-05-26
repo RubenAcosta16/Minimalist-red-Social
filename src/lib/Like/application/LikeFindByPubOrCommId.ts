@@ -3,7 +3,7 @@ import { CommentId } from "../../Comment/domain/props/CommentId";
 import { PublicationId } from "../../Publication/domain/props/PublicationId";
 import { PublicationDbRepository } from "../../Publication/domain/PublicationRepository";
 import { LikeNotFoundError } from "../domain/errors";
-import { LikeDbRepository } from "../domain/FollowRepository";
+import { LikeDbRepository } from "../domain/LIkeRepository";
 import { Like } from "../domain/Like";
 import { LikeType } from "../domain/props/LikeType";
 

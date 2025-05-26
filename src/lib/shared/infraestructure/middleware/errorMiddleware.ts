@@ -2,6 +2,11 @@ import { Request, Response, NextFunction } from "express";
 // import {} from "../../errorFactory";
 import { UserError, UserNotFoundError } from "../../../User/domain/errors";
 import { AuthInvalidCredentialsError } from "../../../Auth/domain/errors";
+import { CommentError } from "../../../Comment/domain/errors";
+import { FollowError } from "../../../Follow/domain/errors";
+import { ImageError } from "../../../Image/domain/errors";
+import { LikeError } from "../../../Like/domain/errors";
+import { PublicationError } from "../../../Publication/domain/errors";
 
 export const errorMiddleware = (
   err: Error,
@@ -9,7 +14,16 @@ export const errorMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  if (err instanceof AuthInvalidCredentialsError || err instanceof UserError) {
+  if (err instanceof AuthInvalidCredentialsError 
+    || err instanceof UserError
+    || err instanceof CommentError
+    || err instanceof FollowError
+    || err instanceof ImageError
+    || err instanceof LikeError
+    || err instanceof PublicationError
+    || err instanceof UserError
+
+  ) {
     return res.status(400).json({
       message: err.message,
     });

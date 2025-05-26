@@ -1,12 +1,14 @@
 import { Comment } from "../../Comment/domain/Comment";
 import { CommentDbRepository } from "../../Comment/domain/CommentRepository";
+import { CommentId } from "../../Comment/domain/props/CommentId";
+import { PublicationId } from "../../Publication/domain/props/PublicationId";
 import { Publication } from "../../Publication/domain/Publication";
 import { PublicationDbRepository } from "../../Publication/domain/PublicationRepository";
 import { generateId } from "../../shared/infraestructure/generateId";
 import { UserId } from "../../User/domain/Props/UserId";
 import { UserRepository } from "../../User/domain/UserRepository";
 import { LikeError } from "../domain/errors";
-import { LikeDbRepository } from "../domain/FollowRepository";
+import { LikeDbRepository } from "../domain/LIkeRepository";
 import { Like } from "../domain/Like";
 import { LikeId } from "../domain/props/LikeId";
 import { LikeType } from "../domain/props/LikeType";
@@ -22,7 +24,7 @@ export class LikeCreate {
   async run(
     // id: string,
     idUser: string,
-    idPubOrComm: never,
+    idPubOrComm: string,
     likeType: string
   ): Promise<void> {
     const id = generateId();
@@ -39,9 +41,9 @@ export class LikeCreate {
     let idPubOrCommFound: Publication | Comment | null = null;
 
     if (likeType === "publication") {
-      idPubOrCommFound = await this.commentRepository.findById(idPubOrComm);
+      idPubOrCommFound = await this.commentRepository.findById(new CommentId(idPubOrComm));
     } else if (likeType === "comment") {
-      idPubOrCommFound = await this.publicationRepository.findById(idPubOrComm);
+      idPubOrCommFound = await this.publicationRepository.findById(new PublicationId(idPubOrComm));
     }
 
     if (!idPubOrCommFound)
@@ -50,7 +52,7 @@ export class LikeCreate {
     const like = new Like(
       new LikeId(id),
       new UserId(idUser),
-      idPubOrComm,
+      idPubOrCommFound.id,
       new LikeType(likeType)
     );
 

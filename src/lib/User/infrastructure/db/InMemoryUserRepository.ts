@@ -26,6 +26,24 @@ export class InMemoryUserRepository implements UserRepository {
       ),
       new ImageUrl("imageUrl2.jpg")
     ),
+    new User(
+      new UserId("user3"),
+      new UserName("Melina"),
+      new UserEmail("melina@example.com"),
+      new UserPassword(
+        "$2b$10$7VZztbkDMPJID42SyZw.P.603xHcxiAt4yIF0M198Q2Y/Oo8PistK"
+      ),
+      new ImageUrl("imageUrl2.jpg")
+    ),
+    new User(
+      new UserId("user4"),
+      new UserName("Ruben"),
+      new UserEmail("ruben@example.com"),
+      new UserPassword(
+        "$2b$10$7VZztbkDMPJID42SyZw.P.603xHcxiAt4yIF0M198Q2Y/Oo8PistK"
+      ),
+      new ImageUrl("imageUrl2.jpg")
+    ),
   ];
 
   async create(user: User): Promise<void> {

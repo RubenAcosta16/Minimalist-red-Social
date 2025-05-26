@@ -37,11 +37,15 @@ export class ExpressAuthController {
     //   imageUrl = await ServiceContainer.image.imageUpload.run(file);
     // }
 
-    const { id, name, password, email }: update = req.body;
+    const { name, password, email }: update = req.body;
+
+    if (!req.user) {
+      throw new Error("User ID is required");
+    }
 
     try {
       await ServiceContainer.auth.update.run(
-        id,
+        req.user.id.value,
         name,
         email,
         password,

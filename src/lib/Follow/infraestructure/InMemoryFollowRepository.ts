@@ -13,6 +13,20 @@ export class InMemoryFollowRepository implements FollowDbRepository {
       ) || null
     );
   }
+
+  findUserYouFollow(
+    idUserToFollow: string,
+    idUserFollower: string
+  ): Promise<Follow | null> {
+    return Promise.resolve(
+      this.follow.find(
+        (follow) =>
+          follow.idUserFollower.value === idUserFollower &&
+          follow.idUserToFollow.value === idUserToFollow
+      ) || null
+    );
+  }
+
   findUsersFollowYou(id: UserId): Promise<Follow[] | null> {
     return Promise.resolve(
       this.follow.filter(

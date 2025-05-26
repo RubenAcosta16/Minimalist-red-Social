@@ -9,8 +9,10 @@ export class InMemoryPublicationRepository implements PublicationDbRepository {
     this.publications.push(user);
   }
 
-  async findAll(): Promise<Publication[]> {
-    return this.publications;
+  async findAll(quantity: number | null): Promise<Publication[]> {
+    if (!quantity) return this.publications;
+
+    return this.publications.slice(0, quantity);
   }
 
   async findById(id: PublicationId): Promise<Publication | null> {

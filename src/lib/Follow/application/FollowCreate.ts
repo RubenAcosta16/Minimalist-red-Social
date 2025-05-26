@@ -17,10 +17,19 @@ export class FollowCreate {
     idUserToFollow: string,
     idUserFollower: string
   ): Promise<void> {
+    if (idUserToFollow === idUserFollower)
+      throw new FollowError("You cannot follow yourself");
+
+    const isFollowed = await this.followRepository.findUserYouFollow(
+      idUserToFollow,
+      idUserFollower
+    );
+    if(isFollowed) throw new FollowError("You are following the user");
+
     const id = generateId();
 
     const followFound = await this.followRepository.findById(new FollowId(id));
-    if (!followFound) throw new FollowError("Follow already exists");
+    if (followFound) throw new FollowError("Follow already exists");
 
     const userToFollowFound = await this.userRepository.findById(
       new UserId(idUserToFollow)

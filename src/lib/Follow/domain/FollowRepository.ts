@@ -5,8 +5,14 @@ import { FollowId } from "./props/FollowId";
 export interface FollowDbRepository {
   findById(id: FollowId): Promise<Follow | null>;
   findUsersYouFollow(id: UserId): Promise<Follow[] | null>;
+  findUserYouFollow(
+    idUserToFollow: string,
+    idUserFollower: string
+  ): Promise<Follow | null>;
+
   findUsersFollowYou(id: UserId): Promise<Follow[] | null>;
 
   create(comment: Follow): Promise<void>;
   delete(id: FollowId): Promise<void>;
 }
+ 

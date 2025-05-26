@@ -8,6 +8,7 @@ import { CommentFindAll } from "../Comment/application/CommentFindAll";
 import { CommentFindById } from "../Comment/application/CommentFindById";
 import { CommentUpdate } from "../Comment/application/CommentUpdate";
 import { InMemoryCommentRepository } from "../Comment/infraestructure/InMemoryCommentRepository";
+import { FeedFindAll } from "../Feed/application/FeedFindAll";
 import { FindUsersFollowYou } from "../Follow/application/FindUsersFollowYou";
 import { FindUsersYouFollow } from "../Follow/application/FindUsersYouFollow";
 import { FollowCreate } from "../Follow/application/FollowCreate";
@@ -91,7 +92,11 @@ export const ServiceContainer = {
       imageDbRepository,
       imageUtilsRepository
     ),
-    delete: new PublicationDelete(publicationRepository, imageDbRepository),
+    delete: new PublicationDelete(
+      publicationRepository,
+      userRepository,
+      imageDbRepository
+    ),
   },
   comment: {
     getAll: new CommentFindAll(commentRepository),
@@ -106,11 +111,11 @@ export const ServiceContainer = {
       userRepository,
       publicationRepository
     ),
-    delete: new CommentDelete(commentRepository),
+    delete: new CommentDelete(commentRepository, userRepository),
   },
   follow: {
     create: new FollowCreate(followRepository, userRepository),
-    delete: new FollowDelete(followRepository),
+    delete: new FollowDelete(followRepository, userRepository),
     findById: new FollowFindById(followRepository),
     findUsersYouFollow: new FindUsersYouFollow(
       followRepository,
@@ -120,21 +125,24 @@ export const ServiceContainer = {
       followRepository,
       userRepository
     ),
-    like: {
-      create: new LikeCreate(
-        likeRepository,
-        userRepository,
-        publicationRepository,
-        commentRepository
-      ),
-      delete: new LikeDelete(likeRepository),
-      findById: new LikeFindById(likeRepository),
-      findByPubOrCommId: new LikeFindByPubOrComm(
-        likeRepository,
-        commentRepository,
-        publicationRepository
-      ),
-      findByUserId: new LikeFindByUserId(likeRepository, userRepository),
-    },
+  },
+  like: {
+    create: new LikeCreate(
+      likeRepository,
+      userRepository,
+      publicationRepository,
+      commentRepository
+    ),
+    delete: new LikeDelete(likeRepository, userRepository),
+    findById: new LikeFindById(likeRepository),
+    findByPubOrCommId: new LikeFindByPubOrComm(
+      likeRepository,
+      commentRepository,
+      publicationRepository
+    ),
+    findByUserId: new LikeFindByUserId(likeRepository, userRepository),
+  },
+  feed: {
+    feedFindAll: new FeedFindAll(publicationRepository),
   },
 };

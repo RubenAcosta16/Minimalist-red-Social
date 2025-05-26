@@ -1,7 +1,7 @@
 import { UserId } from "../../User/domain/Props/UserId";
 import { UserRepository } from "../../User/domain/UserRepository";
 import { LikeNotFoundError } from "../domain/errors";
-import { LikeDbRepository } from "../domain/FollowRepository";
+import { LikeDbRepository } from "../domain/LIkeRepository";
 import { Like } from "../domain/Like";
 import { LikeType } from "../domain/props/LikeType";
 

@@ -30,6 +30,20 @@ export class PublicationUpdate {
     if (!existingPublication)
       throw new PublicationError("Publication not found");
 
+    if (existingPublication.date.value < new Date())
+      throw new PublicationError("Publication is already published");
+
+    // Verifica si han pasado más de 30 minutos desde la creación
+    const thirtyMinutesInMilliseconds = 30 * 60 * 1000;
+    const timeSinceCreation =
+      new Date().getTime() - existingPublication.date.value.getTime();
+
+    if (timeSinceCreation > thirtyMinutesInMilliseconds) {
+      throw new PublicationError(
+        "You can only modify the publication within 30 minutes of creation"
+      );
+    }
+
     const existingUser = await this.userDbRepository.findById(
       new UserId(idUser)
     );

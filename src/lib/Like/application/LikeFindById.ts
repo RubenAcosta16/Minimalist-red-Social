@@ -1,5 +1,5 @@
 import { LikeNotFoundError } from "../domain/errors";
-import { LikeDbRepository } from "../domain/FollowRepository";
+import { LikeDbRepository } from "../domain/LIkeRepository";
 import { Like } from "../domain/Like";
 import { LikeId } from "../domain/props/LikeId";
 import { LikeType } from "../domain/props/LikeType";
